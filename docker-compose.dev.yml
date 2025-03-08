@@ -1,0 +1,22 @@
+services:
+  notification-service:
+    build:
+        context: .
+        dockerfile: Dockerfile-dev
+    container_name: notification-service
+    env_file: .env
+    restart: unless-stopped
+    volumes:
+      - .:/api
+      - ~/.m2:/root/.m2
+    ports:
+      - "35730:35729"
+      - "5006:5005"
+    networks:
+      devfiles-network:
+        aliases:
+          - notification-service
+
+networks:
+  devfiles-network:
+    external: true
