@@ -7,6 +7,7 @@ import com.devfiles.notification.enterprise.domain.valueobject.MailText;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
@@ -20,6 +21,9 @@ public class InvitationPublisher {
     private final Environment environment;
     private final ApplicationEventPublisher eventPublisher;
     private final TemplateEngine templateEngine;
+
+    @Value("${mail.sender.email}")
+    private String senderAddress;
 
     public void publishMailEvent(Message originalMessage, InvitationMessageDto invitationMessageDto) {
         log.info("Publishing invitation mail event");
@@ -43,9 +47,9 @@ public class InvitationPublisher {
         var mailText = new MailText(html, true);
 
         return new Mail(
-                "devfiles@devfiles.com",
+                senderAddress,
                 invitationMessageDto.email(),
-                "Account Confirmation - devFiles",
+                "Account Confirmation",
                 mailText
         );
     }

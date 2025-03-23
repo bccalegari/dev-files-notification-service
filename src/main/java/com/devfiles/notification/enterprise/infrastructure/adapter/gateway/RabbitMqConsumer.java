@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rabbitmq.client.Channel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.MDC;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.support.DefaultMessagePropertiesConverter;
 
@@ -43,6 +44,8 @@ public abstract class RabbitMqConsumer {
             log.info("Message processed: {}", message);
         } catch (Exception e) {
             handleException(e, message, channel, retryCount);
+        } finally {
+            MDC.clear();
         }
     }
 

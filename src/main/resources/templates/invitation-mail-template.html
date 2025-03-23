@@ -125,18 +125,18 @@
 <body>
 <div class="email-container">
     <div class="email-header">
-        devFiles
+        Welcome to devFiles
     </div>
 
     <div class="email-body">
-        <h2>Hello, <span class="user-name">${username}!</span></h2>
+        <h2>Hello, <span class="user-name">[[${username}]]!</span></h2>
         <p>Thank you for registering! To complete your activation, use the code below to confirm your account:</p>
 
-        <span class="confirmation-code">${activationCode}</span>
+        <span class="confirmation-code">[[${activationCode}]]</span>
 
         <p>This code is valid for 5 minutes. If you did not register on our platform, please ignore this email.</p>
 
-        <a href="${activationLink}" class="cta-btn">Activate Account</a>
+        <a href="[[${activationLink}]]" class="cta-btn">Activate Account</a>
     </div>
 
     <div class="email-footer">

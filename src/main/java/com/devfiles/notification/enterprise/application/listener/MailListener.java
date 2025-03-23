@@ -5,7 +5,6 @@ import com.devfiles.notification.enterprise.domain.event.MailMessageErrorEvent;
 import com.devfiles.notification.enterprise.domain.valueobject.Mail;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.MDC;
 import org.springframework.amqp.core.Message;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.EventListener;
@@ -28,20 +27,19 @@ public class MailListener {
     }
 
     private void sendMail(Mail mail, Message originalMessage) {
-        var message = mailSender.createMimeMessage();
-        var helper = new MimeMessageHelper(message, "UTF-8");
-
         log.info("Sending email message to: {} from: {} with subject: {}",
                 mail.to(), mail.from(), mail.subject());
 
         try {
+            var message = mailSender.createMimeMessage();
+            var helper = new MimeMessageHelper(message, true, "UTF-8");
+
             helper.setFrom(mail.from());
             helper.setTo(mail.to());
             helper.setSubject(mail.subject());
             helper.setText(mail.text().text(), mail.text().isHtml());
             mailSender.send(message);
             log.info("Email message sent with success");
-            MDC.clear();
         } catch (Exception e) {
             log.error("Error sending email message to: {} from: {} with subject: {}",
                     mail.to(), mail.from(), mail.subject(), e);
