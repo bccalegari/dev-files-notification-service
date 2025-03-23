@@ -1,4 +1,4 @@
-package com.devfiles.notification.core.domain.event;
+package com.devfiles.notification.core.invitation.domain.event;
 
 import com.devfiles.notification.core.invitation.infrastructure.adapter.dto.InvitationMessageDto;
 import com.devfiles.notification.enterprise.domain.valueobject.Mail;

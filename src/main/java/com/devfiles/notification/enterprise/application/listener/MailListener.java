@@ -1,6 +1,7 @@
 package com.devfiles.notification.enterprise.application.listener;
 
-import com.devfiles.notification.core.domain.event.InvitationMailEvent;
+import com.devfiles.notification.core.invitation.domain.event.InvitationMailEvent;
+import com.devfiles.notification.enterprise.application.service.MailSender;
 import com.devfiles.notification.enterprise.domain.event.MailMessageErrorEvent;
 import com.devfiles.notification.enterprise.domain.valueobject.Mail;
 import lombok.RequiredArgsConstructor;
@@ -8,8 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.EventListener;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -17,7 +16,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class MailListener {
     private final ApplicationEventPublisher applicationEventPublisher;
-    private final JavaMailSender mailSender;
+    private final MailSender mailSender;
 
     @EventListener(InvitationMailEvent.class)
     public void onInvitation(InvitationMailEvent invitationMailEvent) {
@@ -31,14 +30,7 @@ public class MailListener {
                 mail.to(), mail.from(), mail.subject());
 
         try {
-            var message = mailSender.createMimeMessage();
-            var helper = new MimeMessageHelper(message, true, "UTF-8");
-
-            helper.setFrom(mail.from());
-            helper.setTo(mail.to());
-            helper.setSubject(mail.subject());
-            helper.setText(mail.text().text(), mail.text().isHtml());
-            mailSender.send(message);
+            mailSender.execute(mail);
             log.info("Email message sent with success");
         } catch (Exception e) {
             log.error("Error sending email message to: {} from: {} with subject: {}",

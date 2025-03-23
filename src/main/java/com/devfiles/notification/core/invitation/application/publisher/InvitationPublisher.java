@@ -1,6 +1,6 @@
-package com.devfiles.notification.core.application.publisher;
+package com.devfiles.notification.core.invitation.application.publisher;
 
-import com.devfiles.notification.core.domain.event.InvitationMailEvent;
+import com.devfiles.notification.core.invitation.domain.event.InvitationMailEvent;
 import com.devfiles.notification.core.invitation.infrastructure.adapter.dto.InvitationMessageDto;
 import com.devfiles.notification.enterprise.domain.valueobject.Mail;
 import com.devfiles.notification.enterprise.domain.valueobject.MailText;

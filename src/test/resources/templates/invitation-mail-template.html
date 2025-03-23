@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Confirmation - devFiles</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f9fc;
+            color: #333;
+        }
+
+        .email-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .email-header {
+            background-color: #2d3748;
+            color: white;
+            padding: 30px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: 600;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .email-body {
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #4A5568;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .user-name {
+            color: #2d3748;
+            font-weight: 700;
+        }
+
+        p {
+            color: #718096;
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 30px;
+        }
+
+        .confirmation-code {
+            font-size: 40px;
+            font-weight: 700;
+            color: #007AFF;
+            margin-top: 20px;
+            display: block;
+        }
+
+        .cta-btn {
+            background-color: #007AFF;
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 30px;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            background-color: #0467D2;
+        }
+
+        .email-footer {
+            background-color: #f7f9fc;
+            text-align: center;
+            padding: 20px 30px;
+            font-size: 14px;
+            color: #b0bec5;
+        }
+
+        .email-footer a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        .email-footer p {
+            margin-top: 10px;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .email-container {
+                width: 100% !important;
+                padding: 10px;
+            }
+
+            .email-header {
+                padding: 20px;
+            }
+
+            .email-body {
+                padding: 20px 15px;
+            }
+
+            .cta-btn {
+                width: 100%;
+                text-align: center;
+                padding: 18px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="email-container">
+    <div class="email-header">
+        Welcome to devFiles
+    </div>
+
+    <div class="email-body">
+        <h2>Hello, <span class="user-name">[[${username}]]!</span></h2>
+        <p>Thank you for registering! To complete your activation, use the code below to confirm your account:</p>
+
+        <span class="confirmation-code">[[${activationCode}]]</span>
+
+        <p>This code is valid for 5 minutes. If you did not register on our platform, please ignore this email.</p>
+
+        <a href="[[${activationLink}]]" class="cta-btn">Activate Account</a>
+    </div>
+
+    <div class="email-footer">
+        <p>&copy; 2025 devFiles. All rights reserved.</p>
+        <p>If you did not register on our platform, please ignore this email.</p>
+    </div>
+</div>
+</body>
+
+</html>

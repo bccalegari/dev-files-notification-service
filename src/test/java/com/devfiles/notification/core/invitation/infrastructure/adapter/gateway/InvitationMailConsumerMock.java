@@ -7,7 +7,6 @@ import com.rabbitmq.client.Channel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
@@ -15,8 +14,8 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 @Component
 @Slf4j
-@Profile("!test")
-public class InvitationMailConsumer extends RabbitMqConsumer {
+@Profile("test")
+public class InvitationMailConsumerMock extends RabbitMqConsumer {
     private final InvitationPublisher eventPublisher;
     private final Environment environment;
 
@@ -41,7 +40,6 @@ public class InvitationMailConsumer extends RabbitMqConsumer {
     }
 
     @Override
-    @RabbitListener(queues = "${message.broker.registration-invite-queue}")
     public void consumeMessage(Message message, Channel channel) {
         super.consumeMessage(message, channel);
     }
