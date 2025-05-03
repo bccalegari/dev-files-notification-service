@@ -58,7 +58,6 @@ public class InvitationPublisher {
         var context = new Context();
         context.setVariable("username", invitationMessageDto.username());
         context.setVariable("activationCode", invitationMessageDto.invitationCode());
-        context.setVariable("activationLink", "Not implemented yet");
         return context;
     }
 }
