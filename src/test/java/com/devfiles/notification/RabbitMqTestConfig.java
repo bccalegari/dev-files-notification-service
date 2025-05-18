@@ -1,4 +1,4 @@
-package com.devfiles.notification.enterprise.infrastructure.configuration.rabbitmq;
+package com.devfiles.notification;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
@@ -18,10 +18,11 @@ import org.springframework.retry.support.RetryTemplate;
 @Configuration
 @EnableRabbit
 @Slf4j
-@Profile({"!test"})
-public class RabbitMqConfig {
-    private final String ADDRESSES;
+@Profile({"test"})
+public class RabbitMqTestConfig {
+    private final String HOST;
     private final String VIRTUAL_HOST;
+    private final int PORT;
     private final String USERNAME;
     private final String PASSWORD;
 
@@ -30,9 +31,10 @@ public class RabbitMqConfig {
     private final double MULTIPLIER;
     private final long MAX_INTERVAL_IN_MS;
 
-    public RabbitMqConfig(
-            @Value("${spring.rabbitmq.addresses}") String ADDRESSES,
+    public RabbitMqTestConfig(
+            @Value("${spring.rabbitmq.host}") String HOST,
             @Value("${spring.rabbitmq.virtual-host}") String VIRTUAL_HOST,
+            @Value("${spring.rabbitmq.port}") int PORT,
             @Value("${spring.rabbitmq.username}") String USERNAME,
             @Value("${spring.rabbitmq.password}") String PASSWORD,
             @Value("${spring.rabbitmq.template.retry.max-attempts}") int maxAttempts,
@@ -40,8 +42,9 @@ public class RabbitMqConfig {
             @Value("${spring.rabbitmq.template.retry.multiplier}") double multiplier,
             @Value("${spring.rabbitmq.template.retry.max-interval}") long maxInterval
     ) {
-        this.ADDRESSES = ADDRESSES;
+        this.HOST = HOST;
         this.VIRTUAL_HOST = VIRTUAL_HOST;
+        this.PORT = PORT;
         this.USERNAME = USERNAME;
         this.PASSWORD = PASSWORD;
         this.MAX_ATTEMPTS = maxAttempts;
@@ -61,8 +64,9 @@ public class RabbitMqConfig {
     @Bean
     public ConnectionFactory connectionFactory() {
         CachingConnectionFactory connectionFactory = new CachingConnectionFactory();
-        connectionFactory.setAddresses(ADDRESSES);
+        connectionFactory.setHost(HOST);
         connectionFactory.setVirtualHost(VIRTUAL_HOST);
+        connectionFactory.setPort(PORT);
         connectionFactory.setUsername(USERNAME);
         connectionFactory.setPassword(PASSWORD);
         return connectionFactory;

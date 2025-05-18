@@ -16,7 +16,13 @@ services:
       devfiles-network:
         aliases:
           - notification-service
+      rabbitmq-cluster:
+          aliases:
+              - notification-service
 
 networks:
   devfiles-network:
+    external: true
+  rabbitmq-cluster:
+    name: rabbitmq-cluster
     external: true
