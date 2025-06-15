@@ -14,9 +14,6 @@ FROM eclipse-temurin:21-jre-alpine
 
 WORKDIR /app
 
-RUN addgroup -S notification && adduser -S notification -G notification
-USER notification:notification
-
 COPY --from=build /app/target/*.jar app.jar
 
 ENV JAVA_OPTS="-XX:+UseG1GC -XX:+ExitOnOutOfMemoryError"
