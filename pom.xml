@@ -10,9 +10,8 @@
 	</parent>
 	<groupId>com.devfiles</groupId>
 	<artifactId>notification-service</artifactId>
-	<version>0.0.1</version>
+	<version>1.0.0</version>
 	<name>notification</name>
-	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
 		<license/>
